@@ -16,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="">
+    <html lang="en">
       <body className={`${inter.className} flex flex-col h-screen`}>
         <Navbar />
         {children}

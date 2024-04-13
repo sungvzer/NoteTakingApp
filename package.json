@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@uidotdev/usehooks": "^2.4.1",
+    "@uiw/react-md-editor": "^4.0.4",
     "next": "14.2.1",
     "react": "^18",
     "react-dom": "^18"
