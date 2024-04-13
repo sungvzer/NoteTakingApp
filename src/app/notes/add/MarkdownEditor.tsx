@@ -66,7 +66,7 @@ If you need help, check out the [Markdown guide](https://www.markdownguide.org/c
               body: JSON.stringify(form),
             });
             if (res.ok) {
-              router.push(`/notes/${(await res.json()).id}`);
+              router.push(`/notes`);
             } else {
               alert("Failed to save note");
             }
