@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="flex flex-col items-center p-10 text-center flex-grow justify-center dark:bg-gray-700">
+    <main className="flex flex-col items-center p-10 text-center flex-grow justify-center">
       <h1 className="text-3xl font-bold md:text-4xl dark:text-white">
         Welcome to Noted, <br /> an innovative note-taking app.
       </h1>

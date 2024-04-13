@@ -4,7 +4,7 @@ import MarkdownEditor from "./MarkdownEditor";
 
 export default function AddNotes() {
   return (
-    <main className="flex flex-col  p-10 text-center flex-grow dark:bg-gray-700">
+    <main className="flex flex-col p-10 text-center flex-grow">
       <header className="mb-6">
         <h1 className="text-3xl font-bold md:text-4xl dark:text-white">
           Add a note to the diary
