@@ -1,7 +1,6 @@
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import Skeleton from "react-loading-skeleton";
 import { Note } from "../api/models/note.model";
 import Markdown from "react-markdown";
-import { useConfirm } from "@/app/components/Dialog";
 import { useRouter } from "next/navigation";
 
 export function NoteCard({
