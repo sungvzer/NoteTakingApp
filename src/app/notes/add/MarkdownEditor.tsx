@@ -3,6 +3,7 @@ import { useState } from "react";
 import MDEditor from "@uiw/react-md-editor";
 import { useWindowSize } from "@uidotdev/usehooks";
 import MarkdownButton from "./MarkdownButton";
+import { useRouter } from "next/navigation";
 
 export default function AddNotes() {
   const size = useWindowSize();
@@ -16,6 +17,8 @@ You can write notes in **Markdown**. 🎉
 
 If you need help, check out the [Markdown guide](https://www.markdownguide.org/cheat-sheet). 📚
 `;
+
+  const router = useRouter();
 
   const [form, setForm] = useState({
     title: "",
@@ -54,8 +57,19 @@ If you need help, check out the [Markdown guide](https://www.markdownguide.org/c
         </MarkdownButton>
         <MarkdownButton
           role="primary"
-          onClick={() => {
-            // TODO: Save the note
+          onClick={async () => {
+            const res = await fetch("/api/notes", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(form),
+            });
+            if (res.ok) {
+              router.push(`/notes/${(await res.json()).id}`);
+            } else {
+              alert("Failed to save note");
+            }
           }}
         >
           Save
