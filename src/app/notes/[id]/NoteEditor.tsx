@@ -4,6 +4,7 @@ import MDEditor from "@uiw/react-md-editor";
 import { useWindowSize } from "@uidotdev/usehooks";
 import MarkdownButton from "./MarkdownButton";
 import { useRouter } from "next/navigation";
+import { mutate } from "swr";
 
 export default function NoteEditor({
   title,
@@ -68,6 +69,9 @@ If you need help, check out the [Markdown guide](https://www.markdownguide.org/c
           onClick={async () => {
             const url = id != null ? `/api/notes/${id}` : "/api/notes";
             const method = id != null ? "PATCH" : "POST";
+
+            mutate(`/api/notes`);
+            mutate(url);
 
             const res = await fetch(url, {
               method,
