@@ -5,7 +5,15 @@ import { useWindowSize } from "@uidotdev/usehooks";
 import MarkdownButton from "./MarkdownButton";
 import { useRouter } from "next/navigation";
 
-export default function AddNotes() {
+export default function NoteEditor({
+  title,
+  content,
+  id,
+}: {
+  title?: string;
+  content?: string;
+  id?: number;
+}) {
   const size = useWindowSize();
   const isMobile = (size.width ?? 0) < 768;
   const defaultMarkdown = `
@@ -21,8 +29,8 @@ If you need help, check out the [Markdown guide](https://www.markdownguide.org/c
   const router = useRouter();
 
   const [form, setForm] = useState({
-    title: "",
-    content: defaultMarkdown,
+    title: title ?? "",
+    content: content ?? defaultMarkdown,
   });
   return (
     <div>
@@ -58,8 +66,11 @@ If you need help, check out the [Markdown guide](https://www.markdownguide.org/c
         <MarkdownButton
           role="primary"
           onClick={async () => {
-            const res = await fetch("/api/notes", {
-              method: "POST",
+            const url = id != null ? `/api/notes/${id}` : "/api/notes";
+            const method = id != null ? "PATCH" : "POST";
+
+            const res = await fetch(url, {
+              method,
               headers: {
                 "Content-Type": "application/json",
               },

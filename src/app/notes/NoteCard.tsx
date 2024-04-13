@@ -2,6 +2,7 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { Note } from "../api/models/note.model";
 import Markdown from "react-markdown";
 import { useConfirm } from "@/app/components/Dialog";
+import { useRouter } from "next/navigation";
 
 export function NoteCard({
   note,
@@ -19,6 +20,8 @@ export function NoteCard({
     content = content.slice(0, maxContentLength) + "...";
   }
 
+  const router = useRouter();
+
   return (
     <div className="h-50 w-full rounded-lg border dark:bg-gray-900">
       <div className="flex items-center justify-between border-b">
@@ -26,7 +29,12 @@ export function NoteCard({
           {isLoading ? <Skeleton width={300} /> : note.title}
         </div>
         <div className="p-4 flex">
-          <button className="text-slate-800 hover:text-emerald-600 text-sm bg-white hover:bg-slate-100 border border-slate-200 rounded-l-lg font-medium px-4 py-2 inline-flex space-x-1 items-center">
+          <button
+            className="text-slate-800 hover:text-emerald-600 text-sm bg-white hover:bg-slate-100 border border-slate-200 rounded-l-lg font-medium px-4 py-2 inline-flex space-x-1 items-center"
+            onClick={() => {
+              router.push(`/notes/${note.id}`);
+            }}
+          >
             <span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
