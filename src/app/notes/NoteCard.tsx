@@ -1,13 +1,16 @@
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { Note } from "../api/models/note.model";
 import Markdown from "react-markdown";
+import { useConfirm } from "@/app/components/Dialog";
 
 export function NoteCard({
   note,
   isLoading,
+  onDelete,
 }: {
   note: Note;
   isLoading: boolean;
+  onDelete: () => void;
 }) {
   let content = note.content;
   const maxContentLength = 120;
@@ -42,7 +45,10 @@ export function NoteCard({
             </span>
             <span>{isLoading ? <Skeleton width={50} /> : "Edit"}</span>
           </button>
-          <button className="text-slate-800 hover:text-emerald-600 text-sm bg-white hover:bg-slate-100 border border-slate-200 rounded-r-lg font-medium px-4 py-2 inline-flex space-x-1 items-center">
+          <button
+            className="text-slate-800 hover:text-emerald-600 text-sm bg-white hover:bg-slate-100 border border-slate-200 rounded-r-lg font-medium px-4 py-2 inline-flex space-x-1 items-center"
+            onClick={onDelete}
+          >
             <span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

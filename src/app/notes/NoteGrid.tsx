@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Note } from "../api/models/note.model";
 import { NoteCard } from "./NoteCard";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 
 export function NoteGrid() {
   const defaultNote = {
@@ -26,7 +26,12 @@ export function NoteGrid() {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {[1, 2, 3].map((i) => (
-          <NoteCard key={i} note={defaultNote} isLoading={true} />
+          <NoteCard
+            key={i}
+            note={defaultNote}
+            isLoading={true}
+            onDelete={() => {}}
+          />
         ))}
       </div>
     );
@@ -51,9 +56,23 @@ export function NoteGrid() {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {parsedData?.map((note) => (
-        <NoteCard key={note.id} note={note} isLoading={false} />
-      ))}
+      {parsedData?.map((note) => {
+        return (
+          <NoteCard
+            key={note.id}
+            note={note}
+            isLoading={false}
+            onDelete={async () => {
+              const res = await fetch(`/api/notes/${note.id}`, {
+                method: "DELETE",
+              });
+              if (res.ok) {
+                mutate("/api/notes");
+              }
+            }}
+          />
+        );
+      })}
     </div>
   );
 }
